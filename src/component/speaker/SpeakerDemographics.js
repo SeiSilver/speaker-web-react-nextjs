@@ -1,3 +1,5 @@
+import SpeakerFavourite from "./SpeakerFavourite";
+
 const SpeakerDemographics = ({
                                first,
                                last,
@@ -5,7 +7,9 @@ const SpeakerDemographics = ({
                                company,
                                twitterHandle,
                                favorite,
+                               onFavoriteToggle
                              }) => {
+
   return (
     <div className="speaker-info">
       <div className="d-flex justify-content-between mb-3">
@@ -13,6 +17,10 @@ const SpeakerDemographics = ({
           {first} {last}
         </h3>
       </div>
+      <SpeakerFavourite
+        isFavorite={favorite}
+        onFavoriteToggle={onFavoriteToggle}
+      />
       <div>
         <p className="card-description">{bio}</p>
         <div className="social d-flex flex-row mt-4">
