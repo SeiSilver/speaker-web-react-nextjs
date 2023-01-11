@@ -1,5 +1,4 @@
 import Header from "./component/Header";
-import {data} from "./data/SpeakerData";
 import {useState} from "react";
 import Speaker from "./component/speaker/Speaker";
 
@@ -12,7 +11,7 @@ const App = () => {
       theme === "light" ? "container-fluid light" : "container-fluid dark"
     }>
       <Header theme={theme}/>
-      <Speaker data={data} theme={theme} setTheme={setTheme}/>
+      <Speaker theme={theme} setTheme={setTheme}/>
     </div>
   );
 

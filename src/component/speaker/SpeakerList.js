@@ -1,11 +1,16 @@
 import SpeakerCard from "./SpeakerCard";
+import {useState} from "react";
+import {data} from "../../data/SpeakerData";
 
-const SpeakerList = ({data, showSessions}) => {
+const SpeakerList = ({showSessions}) => {
+
+  const [speakerData, setSpeakerData] = useState(data);
+  
   return (
     <div className="container speakers-list">
       <div className="row">
         {
-          data.map(
+          speakerData.map(
             speaker => <SpeakerCard key={speaker.id} speaker={speaker} showSessions={showSessions}/>
           )
         }
