@@ -13,8 +13,6 @@ const SpeakerList = ({showSessions}) => {
       ...currentSpeaker,
       favorite: !currentSpeaker.favorite
     };
-    // const speakerNewData = speakerData.map(data => data.id === id ? updateCurrentSpeaker : data
-    // );
     const speakerNewData = [...speakerData, updateCurrentSpeaker];
     setSpeakerData(speakerNewData);
   }
