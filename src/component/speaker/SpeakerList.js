@@ -1,20 +1,26 @@
 import SpeakerCard from "./SpeakerCard";
-import {useState} from "react";
-import {data} from "../../data/SpeakerData";
+import useRequestSpeakers from "../../hooks/UseRequestSpeakers";
+import {REQUEST_STATUS} from "../../constant/RequestStatus";
 
 const SpeakerList = ({showSessions}) => {
 
-  const [speakerData, setSpeakerData] = useState(data);
+  const {
+    speakerData,
+    requestStatus,
+    error,
+    onFavoriteToggle
+  } = useRequestSpeakers(2000);
 
-  const onFavoriteToggle = (id) => {
+  if (requestStatus === REQUEST_STATUS.FAILURE) {
+    return (
+      <div className="text-danger">
+        ERROR: <b>loading Speaker Data Failed {error}</b>
+      </div>
+    );
+  }
 
-    const currentSpeaker = speakerData.find(s => s.id === id);
-    const updateCurrentSpeaker = {
-      ...currentSpeaker,
-      favorite: !currentSpeaker.favorite
-    };
-    const speakerNewData = [...speakerData, updateCurrentSpeaker];
-    setSpeakerData(speakerNewData);
+  if (requestStatus === REQUEST_STATUS.LOADING) {
+    return <div>Loading...</div>
   }
 
   return (
