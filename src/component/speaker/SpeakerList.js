@@ -1,15 +1,16 @@
 import SpeakerCard from "./SpeakerCard";
-import useRequestSpeakers from "../../hooks/UseRequestSpeakers";
+import useRequestDelay from "../../hooks/UseRequestDelay";
 import {REQUEST_STATUS} from "../../constant/RequestStatus";
+import {data} from "../../data/SpeakerData";
 
 const SpeakerList = ({showSessions}) => {
 
   const {
-    speakerData,
+    data: speakersData,
     requestStatus,
     error,
-    onFavoriteToggle
-  } = useRequestSpeakers(2000);
+    updateRecord
+  } = useRequestDelay(2000, data);
 
   if (requestStatus === REQUEST_STATUS.FAILURE) {
     return (
@@ -27,13 +28,16 @@ const SpeakerList = ({showSessions}) => {
     <div className="container speakers-list">
       <div className="row">
         {
-          speakerData.map(speaker =>
+          speakersData.map(speaker =>
             <SpeakerCard
               key={speaker.id}
               speaker={speaker}
               showSessions={showSessions}
-              onFavoriteToggle={() => {
-                onFavoriteToggle(speaker.id)
+              onFavoriteToggle={(doneCallback) => {
+                updateRecord({
+                  ...speaker,
+                  favorite: !speaker.favorite,
+                }, doneCallback)
               }}
             />
           )
