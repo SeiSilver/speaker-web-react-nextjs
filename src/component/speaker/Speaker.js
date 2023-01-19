@@ -2,15 +2,13 @@ import SpeakersToolbar from "./SpeakersToolbar";
 import SpeakerList from "./SpeakerList";
 import {useState} from "react";
 
-const Speaker = ({theme, setTheme}) => {
+const Speaker = () => {
 
   const [showSessions, setShowSessions] = useState(true);
 
   return (
     <>
       <SpeakersToolbar
-        theme={theme}
-        setTheme={setTheme}
         showSessions={showSessions}
         setShowSessions={setShowSessions}
       />
