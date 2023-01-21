@@ -15,7 +15,7 @@ const SpeakerDemographics = () => {
       </div>
       <SpeakerFavourite/>
       <div>
-        <p className="card-description">{bio}</p>
+        <p className="card-description">{bio.substring(0, 70)}</p>
         <div className="social d-flex flex-row mt-4">
           <div className="company">
             <h5>Company</h5>
