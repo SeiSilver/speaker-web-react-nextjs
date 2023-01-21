@@ -1,8 +1,11 @@
 import {useContext} from "react";
 import {SpeakerContext} from "../../../context/SpeakerContext";
+import withAuth from "../../../hoc/withAuth";
 
-const SpeakerDeleteBtn = () => {
+const SpeakerDeleteBtn = ({loggedInUser}) => {
   const {speaker, deleteRecord} = useContext(SpeakerContext);
+
+  if (!loggedInUser || loggedInUser.length === 0) return null;
 
   return (
     <span className="session w-100">
@@ -25,4 +28,4 @@ const SpeakerDeleteBtn = () => {
   );
 }
 
-export default SpeakerDeleteBtn;
+export default withAuth(SpeakerDeleteBtn);

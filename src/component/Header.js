@@ -1,8 +1,46 @@
 import {useContext} from "react";
 import {ThemeContext} from "../context/ThemeContext";
+import withAuth from "../hoc/withAuth";
 
-const Header = () => {
+const Header = ({loggedInUser, setLoggedInUser}) => {
+
   const {theme} = useContext(ThemeContext);
+
+  const LoggedIn = ({loggedInUser, setLoggedInUser}) => {
+    return (
+      <div>
+        <span>Logged in as {loggedInUser}</span>&nbsp;&nbsp;
+        <button
+          className="btn btn-secondary"
+          onClick={() => {
+            setLoggedInUser("");
+          }}
+        >
+          Logout
+        </button>
+      </div>
+    );
+  }
+
+  const NotLoggedIn = ({loggedInUser, setLoggedInUser}) => {
+    return (
+      <button
+        className="btn-secondary"
+        onClick={(e) => {
+          e.preventDefault();
+          const username = window.prompt("Enter Login Name:", "");
+          const password = window.prompt("Enter Password:", "");
+          if (password === "admin123") {
+            setLoggedInUser(username);
+          } else {
+            window.alert("Password is incorrect!");
+          }
+        }}
+      >
+        Login
+      </button>
+    );
+  }
 
   return (
     <div className="padT4 padB4">
@@ -14,15 +52,20 @@ const Header = () => {
           <div className={
             theme === "light" ? "" : "text-info"
           }>
-            <h4 className="header-title">Silicon Valley Code Camp</h4>
+            <h4 className="header-title">Web rác của SilverNeko</h4>
           </div>
-          <div className={
-            theme === "light" ? "" : "text-info"
-          }>
-            Hello Mr. Smith &nbsp;&nbsp;
-            <span>
-              <a href="#">sign-out</a>
-            </span>
+          <div className={theme === "light" ? "" : "text-info"}>
+            {loggedInUser && loggedInUser.length > 0 ? (
+              <LoggedIn
+                loggedInUser={loggedInUser}
+                setLoggedInUser={setLoggedInUser}
+              />
+            ) : (
+              <NotLoggedIn
+                loggedInUser={loggedInUser}
+                setLoggedInUser={setLoggedInUser}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -30,4 +73,4 @@ const Header = () => {
   );
 }
 
-export default Header;
+export default withAuth(Header);

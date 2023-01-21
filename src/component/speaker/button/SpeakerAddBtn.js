@@ -1,4 +1,9 @@
-const SpeakerAddBtn = ({eventYear, insertRecord}) => {
+import withAuth from "../../../hoc/withAuth";
+
+const SpeakerAddBtn = ({eventYear, insertRecord, loggedInUser}) => {
+
+  if (!loggedInUser || loggedInUser.length === 0) return null;
+
   return (
     <a href="src/component/speaker/button/SpeakerAddBtn#" className="addSes">
       <i
@@ -30,4 +35,4 @@ const SpeakerAddBtn = ({eventYear, insertRecord}) => {
   );
 }
 
-export default SpeakerAddBtn;
+export default withAuth(SpeakerAddBtn);
