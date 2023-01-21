@@ -49,15 +49,7 @@ const SpeakerList = () => {
                 <SpeakerCard
                   key={speaker.id}
                   speaker={speaker}
-                  onFavoriteToggle={(doneCallback) => {
-                    updateRecord(
-                      {
-                        ...speaker,
-                        favorite: !speaker.favorite,
-                      },
-                      doneCallback
-                    );
-                  }}
+                  updateRecord={updateRecord}
                 />
               );
             })}

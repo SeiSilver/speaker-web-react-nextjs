@@ -1,6 +1,8 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {SpeakerContext} from "../../context/SpeakerContext";
 
-const SpeakerFavourite = ({isFavorite, onFavoriteToggle}) => {
+const SpeakerFavourite = () => {
+  const {speaker, updateRecord} = useContext(SpeakerContext);
   const [inTransition, setInTransition] = useState(false);
 
   const doneCallback = () => {
@@ -11,11 +13,17 @@ const SpeakerFavourite = ({isFavorite, onFavoriteToggle}) => {
     <div className="action padB1">
       <span onClick={() => {
         setInTransition(true);
-        onFavoriteToggle(doneCallback);
+        updateRecord(
+          {
+            ...speaker,
+            favorite: !speaker.favorite,
+          },
+          doneCallback
+        );
       }}>
         <i
           className={
-            isFavorite === true ? "fa fa-star orange" : "fa fa-star-o orange"
+            speaker.favorite === true ? "fa fa-star orange" : "fa fa-star-o orange"
           }
         />{" "}
         Favorite{" "}

@@ -1,14 +1,10 @@
 import SpeakerFavourite from "./SpeakerFavourite";
+import {useContext} from "react";
+import {SpeakerContext} from "../../context/SpeakerContext";
 
-const SpeakerDemographics = ({
-                               first,
-                               last,
-                               bio,
-                               company,
-                               twitterHandle,
-                               favorite,
-                               onFavoriteToggle
-                             }) => {
+const SpeakerDemographics = () => {
+
+  const {speaker: {first, last, bio, company, twitterHandle}} = useContext(SpeakerContext);
 
   return (
     <div className="speaker-info">
@@ -17,10 +13,7 @@ const SpeakerDemographics = ({
           {first} {last}
         </h3>
       </div>
-      <SpeakerFavourite
-        isFavorite={favorite}
-        onFavoriteToggle={onFavoriteToggle}
-      />
+      <SpeakerFavourite/>
       <div>
         <p className="card-description">{bio}</p>
         <div className="social d-flex flex-row mt-4">
