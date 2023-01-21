@@ -1,10 +1,9 @@
 import SpeakerCard from "./SpeakerCard";
-import useRequestDelay from "../../hooks/UseRequestDelay";
 import {REQUEST_STATUS} from "../../constant/RequestStatus";
-import {data} from "../../data/SpeakerData";
 import {useContext} from "react";
 import {SpeakerFilterContext} from "../../context/SpeakerFilterContext";
 import SpeakerAddBtn from "./button/SpeakerAddBtn";
+import useRequestRestApi from "../../hooks/UseRequestRestApi";
 
 const SpeakerList = () => {
 
@@ -15,7 +14,7 @@ const SpeakerList = () => {
     updateRecord,
     insertRecord,
     deleteRecord,
-  } = useRequestDelay(2000, data);
+  } = useRequestRestApi();
 
   const {searchQuery, eventYear} = useContext(SpeakerFilterContext);
 

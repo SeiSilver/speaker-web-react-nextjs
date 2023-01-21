@@ -41,7 +41,7 @@ export default async function handler(req, res) {
         res.status(404).send("Error: Request failed with status code 404");
       } else {
         const newSpeakersArray = speakers.map((rec) => {
-          return rec.id === id ? recordFromBody : rec;
+          return rec.id == id ? recordFromBody : rec;
         });
         await writeFile(
           jsonFile,
@@ -66,7 +66,7 @@ export default async function handler(req, res) {
         res.status(404).send("Error: Request failed with status code 404");
       } else {
         const newSpeakersArray = speakers.filter((rec) => {
-          return rec.id !== id;
+          return rec.id != id;
         });
         await writeFile(
           jsonFile,
