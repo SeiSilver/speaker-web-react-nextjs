@@ -4,6 +4,7 @@ import {REQUEST_STATUS} from "../../constant/RequestStatus";
 import {data} from "../../data/SpeakerData";
 import {useContext} from "react";
 import {SpeakerFilterContext} from "../../context/SpeakerFilterContext";
+import SpeakerAddBtn from "./button/SpeakerAddBtn";
 
 const SpeakerList = () => {
 
@@ -11,7 +12,9 @@ const SpeakerList = () => {
     data: speakersData,
     requestStatus,
     error,
-    updateRecord
+    updateRecord,
+    insertRecord,
+    deleteRecord,
   } = useRequestDelay(2000, data);
 
   const {searchQuery, eventYear} = useContext(SpeakerFilterContext);
@@ -30,6 +33,7 @@ const SpeakerList = () => {
 
   return (
     <div className="container speakers-list">
+      <SpeakerAddBtn eventYear={eventYear} insertRecord={insertRecord}/>
       <div className="row">
         {
           speakersData
@@ -50,6 +54,8 @@ const SpeakerList = () => {
                   key={speaker.id}
                   speaker={speaker}
                   updateRecord={updateRecord}
+                  insertRecord={insertRecord}
+                  deleteRecord={deleteRecord}
                 />
               );
             })}

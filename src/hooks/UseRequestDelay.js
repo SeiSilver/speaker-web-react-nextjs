@@ -25,9 +25,51 @@ const useRequestDelay = (delayTime = 1000, initData = []) => {
     });
   }, []);
 
-  const updateRecord = (recordUpdated, doneCallback) => {
+  const updateRecord = (record, doneCallback) => {
     const originalRecords = [...data];
-    const speakerNewData = data.map(data => data.id === recordUpdated.id ? recordUpdated : data);
+    const speakerNewData = data.map(data => data.id === record.id ? record : data);
+    const startDelay = async () => {
+      try {
+        setData(speakerNewData); // Update UX data
+        await delay(delayTime);
+        // Update BE logic DB
+      } catch (error) {
+        console.log("error thrown inside delayFunction", error);
+        setData(originalRecords);
+      }
+    };
+    startDelay().then(() => {
+      if (doneCallback) {
+        doneCallback();
+      }
+    });
+  }
+
+  const deleteRecord = (record, doneCallback) => {
+    const originalRecords = [...data];
+    const speakerNewData = data.filter((rec) => {
+      return rec.id !== record.id;
+    });
+    const startDelay = async () => {
+      try {
+        setData(speakerNewData); // Update UX data
+        await delay(delayTime);
+        // Update BE logic DB
+      } catch (error) {
+        console.log("error thrown inside delayFunction", error);
+        setData(originalRecords);
+      }
+    };
+    startDelay().then(() => {
+      if (doneCallback) {
+        doneCallback();
+      }
+    });
+  }
+
+  const insertRecord = (record, doneCallback) => {
+    const originalRecords = [...data];
+    const speakerNewData = [record, ...data];
     const startDelay = async () => {
       try {
         setData(speakerNewData); // Update UX data
@@ -50,6 +92,8 @@ const useRequestDelay = (delayTime = 1000, initData = []) => {
     requestStatus,
     error,
     updateRecord,
+    insertRecord,
+    deleteRecord,
   };
 }
 
