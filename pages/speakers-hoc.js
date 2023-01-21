@@ -1,7 +1,7 @@
 import React from "react";
 import withData from "../src/hoc/withData";
 
-const Speakers = ({speakers}) => {
+const SpeakersHoc = ({speakers}) => {
   return (
     <div>
       {speakers.map(({imageSrc, name}) => {
@@ -13,4 +13,4 @@ const Speakers = ({speakers}) => {
   );
 };
 
-export default withData(2)(Speakers);
+export default withData(2)(SpeakersHoc);
